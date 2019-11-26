@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <!--配制使用日志所在的类,配制到控制台的输出-->
+    <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+        <!--配制日志的展示形式-->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <!--日志的输出格式-->
+            <pattern>
+                %d - %msg%n
+            </pattern>
+        </layout>
+    </appender>
+    <!--配制到文件的输出,每天输出一个文件(滚动输出)-->
+<appender name="fileInfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!--根据是否符合条件来过滤输出的日志-->
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+        <!--设置日志的过滤级别为error-->
+        <level>ERROR</level>
+        <!--如果是error级别则deny丢弃-->
+        <onMatch>DENY</onMatch>
+        <!--如果不是error级别则accept接受-->
+        <onMismatch>ACCEPT</onMismatch>
+    </filter>
+    <encoder>
+        <pattern>
+            %msg%n
+        </pattern>
+    </encoder>
+    <!--配制滚动策略,按时间滚动,每天一个日志文件-->
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <!--日志输出路径-->
+        <fileNamePattern>D:\软件\apache-tomcat-8.5.31\logs\sell\info.%d.log</fileNamePattern>
+    </rollingPolicy>
+</appender>
+
+    <appender name="fileErrorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--根据范围来过滤输出的日志-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+           <!--设置日志的过滤级别为error-->
+            <level>ERROR</level>
+        </filter>
+    <encoder>
+        <pattern>
+            %msg%n
+        </pattern>
+    </encoder>
+    <!--配制滚动策略,按时间滚动,每天一个日志文件-->
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <!--日志输出路径-->
+        <fileNamePattern>D:\软件\apache-tomcat-8.5.31\logs\sell\error.%d.log</fileNamePattern>
+    </rollingPolicy>
+</appender>
+
+    <!--配置全局的日志输出级别-->
+    <root level="info">
+        <appender-ref ref="consoleLog"/>
+        <appender-ref ref="fileInfoLog"/>
+        <appender-ref ref="fileErrorLog"/>
+    </root>
+
+</configuration>

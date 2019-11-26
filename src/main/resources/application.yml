@@ -1,0 +1,28 @@
+spring:
+  # 设定ftl文件路径
+#  freemarker:
+#    template-loader-path: classpath:/templates
+#    suffix: .ftl
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.217.128/sell?characterEncoding=utf-8&useSSL=false
+#    打印SQL
+  jpa:
+      show-sql: true
+  jackson:
+    default-property-inclusion: non_null  # 如果某个返回值为null则不返回给前端
+server:
+  context-path: /sell # 项目的名称,在访问时每个路径前都会有这个路径
+  port: 8080
+
+wechat:
+  mpAppId: wxd898fcb01713c658
+  mpAppSecret: d66b9273b03cfd05248d13ce0f4675a8
+  mchId: 1409146202
+  mchKey: c976503d34ca432c601361f969fd8d85
+  keyPath: /var/weixin_cert/h5.p12
+  #微信支付异步通知地址
+  notifyUrl:  http://spring.nat300.top/sell/pay/notify
+
